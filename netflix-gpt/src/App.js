@@ -1,13 +1,10 @@
-
-import './App.css';
+import "./App.css";
+import Body from "./components/Body";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h2 className="text-center">Netflix GPT</h2>
-
-      </header>
+    <div>
+      <Body />
     </div>
   );
 }
