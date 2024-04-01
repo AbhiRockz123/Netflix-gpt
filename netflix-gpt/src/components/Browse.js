@@ -1,7 +1,13 @@
 import React from "react";
+import Header from './Header';
+
 
 const Browse = () => {
-  return <div className="font-bold text-center">Browse</div>;
+  
+  return (
+    <Header/>
+
+  );
 };
 
 export default Browse;
