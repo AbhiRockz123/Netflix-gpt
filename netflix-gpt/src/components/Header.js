@@ -1,29 +1,58 @@
-import React from "react";
-import { useSelector ,useDispatch} from "react-redux";
-import { getAuth ,createUserWithEmailAndPassword ,signOut} from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
-import { RemoveUser } from "./../utils/UserSlice";
+import React , {useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { RemoveUser,AddUser } from "./../utils/UserSlice";
 
 
 const Header = () => {
   const store = useSelector((store) => store.user);
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  const handleLogoutClick =()=>{
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+
+  useEffect(() => {
+    const auth=getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        //Update our Redux Store once the user Signups or Logins
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          AddUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/browse");
+      } else {
+        dispatch(RemoveUser());
+        navigate("/");
+      }
+
+      return ()=> unsubscribe();
+    });
+
+    // Unsiubscribe when component unmounts
+    return () => unsubscribe();
+  }, []);
+  const handleLogoutClick = () => {
     const auth = getAuth();
-    signOut(auth).then(() => {
-      dispatch(RemoveUser());
-      navigate("/");
-
-
-}).catch((error) => {
-  // An error happened.
-});
-}
-
+    signOut(auth)
+      .then(() => {
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
 
   return (
-    <div className="relative flex flex-row justify-between ">
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between bg-blend-multiply">
       <div>
         <svg
           className="absolute left-0 z-10 ml-10"
@@ -41,16 +70,19 @@ const Header = () => {
           />
         </svg>
       </div>
-      
-  
-      { store  && <div className="relative z-10 mt-1 mr-4 flex  flex-col  cursor-pointer items-center space-x-2">
-        <img
-          className="h-10 w-10 rounded-full"
-          src={store?.photoURL} // Assuming store.photoURL contains the image URL
-          alt="user-image"
-        />
-        <button onClick={handleLogoutClick} className=" font-bold">User logout</button>
-      </div>}
+
+      {store && (
+        <div className="relative z-10 mt-1 mr-4 flex  flex-col  cursor-pointer items-center space-x-2">
+          <img
+            className="h-10 w-10 rounded-full"
+            src={store?.photoURL} // Assuming store.photoURL contains the image URL
+            alt="user-image"
+          />
+          <button onClick={handleLogoutClick} className=" font-bold text-white">
+            User logout
+          </button>
+        </div>
+      )}
     </div>
   );
 };

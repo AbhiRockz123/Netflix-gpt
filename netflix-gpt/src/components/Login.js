@@ -9,17 +9,13 @@ import {
 } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { app } from "./../utils/firebase";
-import { useDispatch } from "react-redux";
-import { AddUser } from "./../utils/UserSlice";
-import { redirect, useNavigate } from "react-router-dom";
 
 // Define the Login component
 const Login = () => {
   // State variables for managing sign in/up and error message
   const [isSignIn, setisSignIn] = useState(true);
   const [errorMessage, seterrorMessage] = useState(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
 
   // Function to toggle between sign in and sign up
   const handleClick = (e) => {
@@ -63,23 +59,11 @@ const Login = () => {
             updateProfile(user, {
               displayName: name?.current?.value,
               photoURL:
-                "https://play-lh.googleusercontent.com/ZvMvaLTdYMrD6U1B3wPKL6siMYG8nSTEnzhLiMsH7QHwQXs3ZzSZuYh3_PTxoU5nKqU",
+                "https://i.pinimg.com/564x/1b/71/b8/1b71b85dd741ad27bffa5c834a7ed797.jpg",
             })
               .then(() => {
                 // Username updated successfully
 
-                //Update our Redux Store once the user Signups or Logins
-                const { uid, email, displayName, photoURL } = auth.currentUser;
-                dispatch(
-                  AddUser({
-                    uid: uid,
-                    email: email,
-                    displayName: displayName,
-                    photoURL: photoURL,
-                  })
-                );
-                //redirect("/browse");
-                navigate("/browse");
               })
               .catch((error) => {
                 // Error updating username
@@ -88,7 +72,6 @@ const Login = () => {
           })
           .catch((error) => {
             // Error occurred during sign-up
-            const errorCode = error.code;
             const errorMessage = error.message;
             console.error("Sign-up error:", errorMessage);
             seterrorMessage(errorMessage);
@@ -111,23 +94,9 @@ const Login = () => {
           email?.current?.value,
           password?.current?.value
         )
-          .then((userCredential) => {
-            // Signed in successfully
-            const user = userCredential.user;
-            const { uid, email, displayName, photoURL } = auth.currentUser;
-            dispatch(
-              AddUser({
-                uid: uid,
-                email: email,
-                displayName: displayName,
-                photoURL: photoURL,
-              })
-            );
-            navigate("/browse");
-          })
+          .then((userCredential) => {})
           .catch((error) => {
             // Error occurred during sign-in
-            const errorCode = error.code;
             const errorMessage = error.message;
             console.error("Sign-in error:", errorMessage);
             seterrorMessage(errorMessage);
