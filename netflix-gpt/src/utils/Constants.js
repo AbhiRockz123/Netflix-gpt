@@ -7,4 +7,29 @@ export const tmdbOptions = {
   },
 };
 
-export const TMDB_api_key="33fd98e45ff4faba80ee6bef904ad37e";
+export const TMDB_api_key = "33fd98e45ff4faba80ee6bef904ad37e";
+export const languageConstants = [
+  { identifier: "English", name: "English" },
+  { identifier: "Hindi", name: "Hindi" },
+  { identifier: "Spanish", name: "Spanish" },
+  { identifier: "French", name: "French" },
+];
+
+export const lang = {
+  English: {
+    search: "Search",
+    gptSearchPlaceholder: "What would you like to watch today?",
+  },
+  Hindi: {
+    search: "खोज",
+    gptSearchPlaceholder: "आज आप क्या देखना चाहेंगे?",
+  },
+  Spanish: {
+    search: "buscar",
+    gptSearchPlaceholder: "¿Qué te gustaría ver hoy?",
+  },
+  French: {
+    search: "Recherche",
+    gptSearchPlaceholder: "qu'est-ce que tu veux regarder aujourd'hui ?",
+  },
+};

@@ -8,12 +8,12 @@ const MainContainer = () => {
   if (!movies) return null;
 
   const mainVideo = movies[0];
-  console.log(mainVideo);
 
   return (
-    <div className="relative">
-      <VideoContainer id={mainVideo?.id} />
+    <div className="pt-[30%] bg-black md:pt-0">
       <VideoTitle name={mainVideo?.original_title} desc={mainVideo?.overview} />
+      <VideoContainer id={mainVideo?.id} />
+      
     </div>
   );
 };

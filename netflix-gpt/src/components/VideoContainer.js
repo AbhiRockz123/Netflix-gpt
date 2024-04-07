@@ -17,9 +17,8 @@ const VideoContainer = ({id}) => {
     );
     const json = await data.json();
     const trailerData = (json?.results).filter(
-      (data) => data?.name === "Official Trailer"
+      (data) => data?.type === "Official Trailer" || data?.type==="Trailer"
     );
-    console.log(trailerData);
     dispatch(addTrailerData(trailerData));
   };
 
@@ -27,13 +26,11 @@ const VideoContainer = ({id}) => {
     videoList();
   }, []);
 
-  
-  console.log(trailerVideo);
   if(!trailerVideo) return null;
 
   
 
-  return <div className="absolute w-64 top-0">
+  return <div className="w-screen">
     <iframe  className="w-screen aspect-video " src={"https://www.youtube.com/embed/"+trailerVideo[0]?.key+"?si=lftwCCc3KwTtzazM&autoplay=1&mute=1"} 
     title="YouTube video player" frameBorder="0"
      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

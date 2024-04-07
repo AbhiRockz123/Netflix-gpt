@@ -1,22 +1,20 @@
-import React from "react";
 import { tmdbOptions } from "./../utils/Constants";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addNowPlayingMovies } from "./../utils/movieSlice";
+import { addUpcomingMovies } from "./../utils/movieSlice";
 
-const useReecentMoviesData = () => {
+const UseUpcomingMovies = () => {
   const dispatch = useDispatch();
   const MoviesList = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
+      "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1",
       tmdbOptions
     );
     const json = await data.json();
-    dispatch(addNowPlayingMovies(json?.results));
+    dispatch(addUpcomingMovies(json?.results));
   };
   useEffect(() => {
     MoviesList();
   }, []);
 };
-
-export default useReecentMoviesData;
+export default UseUpcomingMovies;

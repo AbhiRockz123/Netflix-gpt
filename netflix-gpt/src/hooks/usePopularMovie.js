@@ -2,21 +2,21 @@ import React from "react";
 import { tmdbOptions } from "./../utils/Constants";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addNowPlayingMovies } from "./../utils/movieSlice";
+import { addPopularMovies } from "./../utils/movieSlice";
 
-const useReecentMoviesData = () => {
+const usePopularMoviesData = () => {
   const dispatch = useDispatch();
   const MoviesList = async () => {
     const data = await fetch(
-      "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
+      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
       tmdbOptions
     );
     const json = await data.json();
-    dispatch(addNowPlayingMovies(json?.results));
+    dispatch(addPopularMovies(json?.results));
   };
   useEffect(() => {
     MoviesList();
   }, []);
 };
 
-export default useReecentMoviesData;
+export default usePopularMoviesData;
