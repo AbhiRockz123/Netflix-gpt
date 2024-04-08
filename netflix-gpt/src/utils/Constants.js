@@ -33,3 +33,5 @@ export const lang = {
     gptSearchPlaceholder: "qu'est-ce que tu veux regarder aujourd'hui ?",
   },
 };
+
+

@@ -9,12 +9,14 @@ import useUpcomingMovies from "./../hooks/useUpcomingMovies";
 import { useSelector } from "react-redux";
 import GptSearch from "./GptSearch";
 
+
 const Browse = () => {
   const GptToggle = useSelector((store) => store.Gpt?.GptState);
   useReecentMoviesData();
   usePopularMoviesData();
   usetopRatedMovies();
   useUpcomingMovies();
+
 
   return (
     <div>

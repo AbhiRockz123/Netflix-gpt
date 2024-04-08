@@ -52,7 +52,7 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between h-auto ">
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between ">
       <svg
         className="absolute left-0 z-10 ml-4 top-0  size-20 md:h-20 md:w-32"
         xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +71,7 @@ const Header = () => {
           {GptToggle && (
             <select
               onChange={handleLanguageChnage}
-              className="bg-slate-500 w-auto h-10 rounded-md mr-2"
+              className="bg-slate-500 w-auto h-6 md:h-8 rounded-md mr-2"
             >
               {languageConstants.map((lang) => (
                 <option value={lang.name}>{lang.name}</option>
@@ -82,7 +82,7 @@ const Header = () => {
             onClick={() => {
               dispatch(ChangeGptSearch());
             }}
-            className="text-white bg-blue-500 rounded-md w-auto h-10 mx-2 px-1"
+            className="text-white h-6 md:h-8  bg-blue-500 rounded-md w-auto mx-2 px-1"
           >
             {GptToggle ? "HomePage" : "Gpt Search"}
           </button>
