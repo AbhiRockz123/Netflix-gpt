@@ -48,12 +48,14 @@ const GptSearch = () => {
           body: JSON.stringify(requestBody),
         }
       );
-      const json = await response.json(); // Await response.json()
+      const json = await response.json(); 
+      console.log(json);// Await response.json()
 
       const QueriedMoviesData =
         json?.candidates[0].content.parts[0]?.text.split(",");
       const PromiseArray = QueriedMoviesData.map((movie) => SearchMovie(movie));
       const tmdbList = await Promise.all(PromiseArray);
+      console.log(tmdbList);
       dispatch(addQueriedMovies(tmdbList));
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -65,26 +67,26 @@ const GptSearch = () => {
       <img
         src="https://assets.nflxext.com/ffe/siteui/vlv3/7ca5b7c7-20aa-42a8-a278-f801b0d65fa1/fb548c0a-8582-43c5-9fba-cd98bf27452f/IN-en-20240326-popsignuptwoweeks-perspective_alpha_website_large.jpg"
         alt="background-logo"
-        className="absolute blur-[4px] -z-10  h-screen object-cover  md:h-auto"
+        className="absolute bg-repeat-y  blur-[4px] -z-10  h-screen object-cover  md:h-auto"
       />
       <div className="h-screen flex items-center justify-center  ">
-        <div className="flex  flex-col items-center w-full md:w-2/3 justify-center mt-[10%] md:mt-10  ">
-          <div className="mb-4 ">
+        <div className="flex flex-col w-full  justify-center mt-[45%] md:mt-10  ">
+          <div className="flex justify-center items-center">
             <input
               ref={inputText}
-              className="w-auto m-4 p-2 bg-slate-200  border-2 border-black rounded-lg "
-              placeholder={lang[language]?.gptSearchPlaceholder}
+              className="w-2/6  mr-2 m-2 p-2 text-white font-bold  border-2 border-black rounded-lg bg-slate-500 opacity-60 "
+              placeholder={lang?"What would you like to watch today":lang[language]?.gptSearchPlaceholder}
             />
             <button
               onClick={() => handleClick()}
-              className="p-2 w-auto bg-slate-200 border-black  border-2 rounded-lg hover:scale-110"
+              className="p-2 w-auto  border-black  border-2 rounded-lg bg-red-600 text-white px-10 hover:scale-110"
             >
-              {lang[language]?.search}
+              {lang?"English":lang[language]?.search}
             </button>
           </div>
 
           {QueriedMoviesData && (
-            <div className="flex flex-wrap space-x-2 space-y-2 justify-center  ">
+            <div className="flex flex-wrap space-x-2 space-y-2 justify-center ">
               {QueriedMoviesData.map((data) => (
                 <CardContainer
                   key={data?.results[0]?.id}

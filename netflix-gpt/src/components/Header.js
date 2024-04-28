@@ -73,8 +73,8 @@ const Header = () => {
               onChange={handleLanguageChnage}
               className="bg-slate-500 w-auto h-6 md:h-8 rounded-md mr-2"
             >
-              {languageConstants.map((lang) => (
-                <option value={lang.name}>{lang.name}</option>
+              {languageConstants.map((lang,id) => (
+                <option  key={id} value={lang.name}>{lang.name}</option>
               ))}
             </select>
           )}

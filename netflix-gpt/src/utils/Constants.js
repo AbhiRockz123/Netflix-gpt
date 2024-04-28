@@ -34,4 +34,4 @@ export const lang = {
   },
 };
 
-
+export const Gemini_API_KEY="AIzaSyCgtNMsVjLtAVu-hDgrzZkNOQdFLndhA_c";
